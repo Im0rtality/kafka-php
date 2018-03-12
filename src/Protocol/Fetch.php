@@ -133,7 +133,7 @@ class Fetch extends Protocol
      *
      * @throws ProtocolException
      */
-    protected function decodeMessageSetArray(string $data, int $messageSetSize): array
+    protected function decodeMessageSetArray(string $data, int $messageSetSize, int $roffset = null): array
     {
         $offset = 0;
         $result = [];
@@ -154,6 +154,10 @@ class Fetch extends Protocol
                 continue;
             }
 
+            if ($roffset !== null) {
+                $ret['data']['offset'] = $roffset;
+            }
+
             $offset += $ret['length'];
 
             if (($ret['data']['message']['attr'] & Produce::COMPRESSION_CODEC_MASK) === Produce::COMPRESSION_NONE) {
@@ -161,7 +165,7 @@ class Fetch extends Protocol
                 continue;
             }
 
-            $innerMessages = $this->decodeMessageSetArray($ret['data']['message']['value'], $ret['length']);
+            $innerMessages = $this->decodeMessageSetArray($ret['data']['message']['value'], $ret['length'], $ret['data']['offset']);
             $result        = array_merge($result, $innerMessages['data']);
         }
 
