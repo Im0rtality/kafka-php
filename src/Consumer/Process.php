@@ -630,7 +630,7 @@ class Process
     public function succFetch(array $result, int $fd): void
     {
         $assign = $this->getAssignment();
-        $this->debug('Fetch success, result:' . json_encode($result));
+        $this->debug('Fetch success, result:');// . json_encode($result));
 
         foreach ($result['topics'] as $topic) {
             foreach ($topic['partitions'] as $part) {
