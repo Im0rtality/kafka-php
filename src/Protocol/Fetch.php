@@ -155,7 +155,7 @@ class Fetch extends Protocol
             }
 
             if ($roffset !== null) {
-                $ret['data']['offset'] = $roffset;
+                $ret['data']['offset'] = $roffset + 1;
             }
 
             $offset += $ret['length'];
