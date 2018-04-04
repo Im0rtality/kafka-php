@@ -658,7 +658,7 @@ class Process
 
                 $consumerOffset = ($part['highwaterMarkOffset'] > $offset) ? ($offset + 1) : $offset;
                 $assign->setConsumerOffset($topic['topicName'], $part['partition'], $consumerOffset);
-                $assign->setCommitOffset($topic['topicName'], $part['partition'], $offset);
+                $assign->setCommitOffset($topic['topicName'], $part['partition'], $consumerOffset);
             }
         }
 
